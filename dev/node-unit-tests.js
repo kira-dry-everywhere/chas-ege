@@ -619,4 +619,59 @@ module.exports = function registerNodeTests(QUnit) {
         assert.equal(calls.length, 1, 'translate вызван ровно один раз');
         assert.deepEqual(calls[0], [200, 150], 'translate(width/2, height/2)');
     });
+
+    // ============================================================
+    //  Правильный многоугольник и правильная пирамида  (lib/figure.js)
+    // ============================================================
+    QUnit.module('regularPolygonCircumradius, RegularPyramid.faces');
+
+    QUnit.test('regularPolygonCircumradius: R = a / (2 sin(pi/n))', function (assert) {
+        assert.ok(Math.abs(regularPolygonCircumradius(6, 6) - 6) < 1e-12, 'у шестиугольника R = a');
+        assert.ok(Math.abs(regularPolygonCircumradius(6, 3) - 6 / Math.sqrt(3)) < 1e-12, 'у треугольника R = a/√3');
+        assert.ok(Math.abs(regularPolygonCircumradius(4, 4) - 4 / Math.sqrt(2)) < 1e-12, 'у квадрата R = a/√2');
+        assert.throws(function () { regularPolygonCircumradius(6, 2); }, 'numberSide меньше трёх');
+        assert.throws(function () { regularPolygonCircumradius(0, 6); }, 'baseSide не положителен');
+    });
+
+    QUnit.test('радиус основания призмы и пирамиды считается той же функцией', function (assert) {
+        var pyramid = new RegularPyramid({ height: 2, baseSide: 6, numberSide: 6 });
+        var prism = new RegularPrism({ height: 2, baseSide: 6, numberSide: 6 });
+        assert.ok(Math.abs(pyramid.radiusOfCircumscribedCircle - regularPolygonCircumradius(6, 6)) < 1e-12, 'пирамида');
+        assert.ok(Math.abs(prism.radiusOfCircumscribedCircle - regularPolygonCircumradius(6, 6)) < 1e-12, 'призма');
+        assert.ok(Math.abs(pyramid.sideEdge - Math.sqrt(36 + 4)) < 1e-12, 'боковое ребро: sqrt(R^2 + H^2)');
+    });
+
+    QUnit.test('RegularPyramid.faces: основание и по боковой грани на каждую сторону', function (assert) {
+        var square = new RegularPyramid({ height: 1, baseSide: 1, numberSide: 4 });
+        assert.deepEqual(square.faces, [[0, 1, 2, 3], [0, 1, 4], [1, 2, 4], [2, 3, 4], [3, 0, 4]],
+            'совпадает со списком граней в zdn/matege2024b/13/512464.js');
+        var hex = new RegularPyramid({ height: 1, baseSide: 1, numberSide: 6 });
+        assert.equal(hex.faces.length, 7, 'основание и 6 боковых граней');
+        assert.deepEqual(hex.faces[0], [0, 1, 2, 3, 4, 5], 'основание');
+        assert.deepEqual(hex.faces[6], [5, 0, 6], 'последняя боковая грань замыкает основание');
+    });
+
+    QUnit.test('RegularPyramid.faces: номера вершин существуют, каждое ребро лежит в грани', function (assert) {
+        [3, 4, 6].forEach(function (n) {
+            var pyramid = new RegularPyramid({ height: 1, baseSide: 1, numberSide: n });
+            var faces = pyramid.faces;
+            var vertices = pyramid.verticesOfFigure;
+            var matrix = pyramid.connectionMatrix;
+            faces.forEach(function (face) {
+                face.forEach(function (v) {
+                    assert.ok(v >= 0 && v < vertices.length, 'n = ' + n + ': вершина ' + v + ' существует');
+                });
+            });
+            for (var i = 0; i < matrix.length; i++) {
+                for (var j = 0; j <= i; j++) {
+                    if (!matrix[i][j]) { continue; }
+                    var edge = [i + 1, j];
+                    var covered = faces.some(function (face) {
+                        return face.indexOf(edge[0]) !== -1 && face.indexOf(edge[1]) !== -1;
+                    });
+                    assert.ok(covered, 'n = ' + n + ': ребро ' + edge.join('-') + ' лежит в какой-то грани');
+                }
+            }
+        });
+    });
 };
