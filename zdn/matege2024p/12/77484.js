@@ -15,8 +15,6 @@
 			expr: sign + '(' + ['x', a].shuffleJoin('+') + ')^2*e^(' + '-' + [a, 'x'].shuffle().join('-') + ')',
 			leftEnd: leftEnd,
 			rightEnd: rightEnd,
-			primaryStep: 0.01,
-			secondaryStep: 0.0001,
 			authors: ['Алендарь Сергей'],
 		});
 	}, 10000);
