@@ -22,20 +22,7 @@
 			if (quarter === 1 || quarter === 4) signFind = 1;
 			else signFind = -1;
 		}
-		switch (quarter) {
-		case 1: // 0-90°
-			angleRange = '0° < \\alpha < 90°';
-			break;
-		case 2: // 90-180°
-			angleRange = '90° < \\alpha < 180°';
-			break;
-		case 3: // 180-270°
-			angleRange = '180° < \\alpha < 270°';
-			break;
-		case 4: // 270-360°
-			angleRange = '270° < \\alpha < 360°';
-			break;
-		}
+		angleRange = (quarter - 1) * 90 + '° < \\alpha < ' + quarter * 90 + '°';
 		let factor = sl(2, 16);
 		let numerator = sl(2, 9);
 		let denominator = sl(2, 20);
