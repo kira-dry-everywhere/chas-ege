@@ -49,7 +49,10 @@
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             // Вершины — снаружи окружности, на продолжении радиуса
-            points.slice(0, 3).forEach((elem, i) => ctx.fillText(letters[i], elem.x * 1.1, -elem.y * 1.1));
+            points.slice(0, 3).forEach((elem, i) => {
+                let label = labelPositionAwayFrom(elem, circle.pc, 16);
+                ctx.fillText(letters[i], label.x, -label.y);
+            });
             // Центр — с той стороны от O, где подпись дальше всего от отрезков чертежа
             let segments = [[0, 1], [0, 2], [1, 2], [0, 3], [1, 3]].map(([i, j]) => [points[i], points[j]]);
             let labelPosition = [...Array(12).keys()]
