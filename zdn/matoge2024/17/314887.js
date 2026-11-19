@@ -54,8 +54,10 @@
             let up = Math.sign(shortBase[0].y - longBase[0].y);
             ctx.fillText('45°', left.x + 55, -(left.y + up * 14));
             bases.forEach(([p1, p2, length], i) => {
-                let outside = (i == 0 ? -up : up) * 18;
-                ctx.fillText(length, (p1.x + p2.x) / 2, -((p1.y + p2.y) / 2 + outside));
+                let pos = labelPositionOutsideSegment(
+                    { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 },
+                    p1, p2, bases[1 - i][0], 18);
+                ctx.fillText(length, pos.x, -pos.y);
             });
         };
 
