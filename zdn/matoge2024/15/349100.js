@@ -51,8 +51,7 @@
             ctx.drawFigure(points, connectionMatrix);
 
             ctx.strokeStyle = om.primaryBrandColors[1];
-            ctx.strokeInMiddleOfSegment(pointsSide[0].x, pointsSide[0].y, points[3].x, points[3].y, 10);
-            ctx.strokeInMiddleOfSegment(pointsSide[1].x, pointsSide[1].y, points[3].x, points[3].y, 10);
+            pointsSide.forEach((p) => ctx.strokeInMiddleOfSegment(p.x, p.y, points[3].x, points[3].y, 10));
 
             ctx.scale(1, -1);
             ctx.font = '20px liberation_sans';
