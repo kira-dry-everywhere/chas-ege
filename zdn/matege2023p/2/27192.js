@@ -51,7 +51,7 @@
 
 			let point2D = vertex3D.map((coord3D) => project3DTo2D(coord3D, camera));
 
-			autoScale(vertex3D, camera, point2D, {
+			point2D = autoScale(vertex3D, camera, point2D, {
 				startX: -180,
 				finishX: 160,
 				startY: -160,
@@ -59,7 +59,6 @@
 				maxScale: 100,
 			});
 
-			point2D = vertex3D.map((coord3D) => project3DTo2D(coord3D, camera));
 			genAssert((point2D[3].y - point2D[8].y).abs() > 20);
 			genAssert((point2D[3].x - point2D[8].x).abs() > 20);
 			genAssert(distanceFromPointToSegment(point2D[3], point2D[8], point2D[11]) > 10);
