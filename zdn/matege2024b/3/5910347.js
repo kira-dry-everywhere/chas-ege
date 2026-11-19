@@ -5,7 +5,7 @@
 		let key = '5910347';
 		let preference = ['dayMinimum', 'dayMaximum', 'periodMinimum', 'periodMaximum', 'valueAtTime'];
 		let variant = getSelectedPreferenceFromList(key, preference);
-		let days = ['во вторник', 'в среду', 'в четверг'];
+		let days = [2, 3, 4].map(i => om.denned.pg['в'][i] + ' ' + om.denned.ve[i]); // вторник, среда, четверг
 		let day = sl(0, 2);
 		let hour = [6, 12, 18].iz();
 		let pMin = 720, pMax = 780, pStep = 2;
