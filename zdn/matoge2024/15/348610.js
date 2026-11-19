@@ -67,10 +67,8 @@
 			};
 			points.forEach((elem, i) => {
 				let from = (i < 3) ? center : pointCentralAngle;
-				let dx = elem.x - from.x;
-				let dy = elem.y - from.y;
-				let length = Math.hypot(dx, dy);
-				ctx.fillText(letters[i], elem.x + 18 * dx / length, -(elem.y + 18 * dy / length));
+				let pos = labelPositionAwayFrom(elem, from, 18);
+				ctx.fillText(letters[i], pos.x, -pos.y);
 			});
 		};
 
