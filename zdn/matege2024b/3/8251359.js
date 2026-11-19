@@ -11,7 +11,7 @@
 		let count = period ? 16 : 24;
 		let values = [].zapslch(0, count - 1, 10, 150, 10);
 		let extremum = question ? values.minE() : values.maxE();
-		genAssert(values.filter(value => value === extremum).length === 1, 'Экстремум должен быть единственным');
+		genAssert(values.sovp(extremum) === 1, 'Экстремум должен быть единственным');
 		NAtask.setTask({
 			text: 'На диаграмме показано количество посетителей сайта ' +
 				(period ? 'во все дни с ' + start + ' по ' + (start + count - 1) + ' ноября.' : 'в течение каждого часа одних суток.') +
