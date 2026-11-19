@@ -86,8 +86,8 @@
 					let v = points[indexV];
 					let d = points[indexOpposite];
 					let side = points[j];
-					let sideLength = Math.hypot(side.x - v.x, side.y - v.y);
-					let diagonalLength = Math.hypot(d.x - v.x, d.y - v.y);
+					let sideLength = [side, v].mt_rasst();
+					let diagonalLength = [d, v].mt_rasst();
 					let dx = (side.x - v.x) / sideLength + (d.x - v.x) / diagonalLength;
 					let dy = (side.y - v.y) / sideLength + (d.y - v.y) / diagonalLength;
 					let radius = Math.min(sideLength * 0.6, 65 + i * 35);
