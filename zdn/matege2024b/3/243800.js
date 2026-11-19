@@ -9,7 +9,7 @@
 		let question = getSelectedPreferenceFromList(key, preferenceQuestion);
 		let period = getSelectedPreferenceFromList(key, preferencePeriod);
 		let chart = getSelectedPreferenceFromList(key, preferenceChart);
-		let values = [-6, -4, 2, 8, 14, 18, 22, 20, 14, 8, 2, -4].map(value => value + 2 * sl(-2, 2));
+		let values = [-6, -4, 2, 8, 14, 18, 22, 20, 14, 8, 2, -4].map(value => value + sl(-4, 4, 2));
 		let left = [0, 6, 5, sl(0, 8)][period];
 		let right = [11, 11, 7, sl(left + 1, 11)][period];
 		let selected = values.slice(left, right + 1);
