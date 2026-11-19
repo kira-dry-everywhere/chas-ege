@@ -15,7 +15,7 @@
 		let selected = values.slice(left, right + 1);
 		let extremum = question % 2 ? selected.maxE() : selected.minE();
 		if (question >= 2) {
-		    genAssert(selected.filter(value => value === extremum).length === 1, 'Номер месяца должен определяться однозначно');
+		    genAssert(selected.sovp(extremum) === 1, 'Номер месяца должен определяться однозначно');
 		}
 		let answer = question < 2 ? extremum : left + selected.indexOf(extremum) + 1;
 		let periodText = ['за весь год', 'во второй половине года', 'летом (июнь, июль, август)',
