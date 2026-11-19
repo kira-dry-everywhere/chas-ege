@@ -68,7 +68,7 @@
                     `сторона $BC$ равна $${triangle.lengthBC}$`,
                     `сторона $AC$ равна $${triangle.lengthCA}$`
                 ].shuffleJoin(', ')}. Найдите $DE$.`,
-            answers: [triangle.midlineABLength, triangle.midlineBCLength, triangle.midlineCALength][variant],
+            answers: Object.values(triangle.midlineLengths)[variant],
             authors: ['Александра Суматохина'],
         });
         NAtask.modifiers.variativeABC(letters);
