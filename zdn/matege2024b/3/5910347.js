@@ -9,7 +9,7 @@
 		let day = sl(0, 2);
 		let hour = [6, 12, 18].iz();
 		let pMin = 720, pMax = 780, pStep = 2;
-		let values = Array.from({length: 13}, () => sl(pMin, pMax, pStep));
+		let values = [].zapslch(0, 12, pMin, pMax, pStep);
 		let selected = variant < 2 ? values.slice(4 * day, 4 * day + 5) : values;
 		let questions = [
 		    'Найдите наименьшее значение атмосферного давления ' + days[day] + ' с 0:00 до 24:00 включительно.',
