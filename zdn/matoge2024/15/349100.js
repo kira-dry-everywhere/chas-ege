@@ -22,7 +22,7 @@
         // Середина стороны M — в начале координат, сторона горизонтальна,
         // вершина, из которой проведена медиана, — на расстоянии medianLength от M
         let phi = sl(40, 140) * Math.PI / 180;
-        let medianVertex = { x: medianLength * Math.cos(phi), y: medianLength * Math.sin(phi) };
+        let medianVertex = calculateEndpointLineAtAngle(0, 0, phi, medianLength);
         let sideEnds = [{ x: -valueDano / 2, y: 0 }, { x: valueDano / 2, y: 0 }];
         let vertices = sideEnds.slice();
         vertices.splice(variant, 0, medianVertex); // вершины A, B, C по порядку
