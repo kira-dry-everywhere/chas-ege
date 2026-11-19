@@ -8,7 +8,8 @@
 		let days = ['во вторник', 'в среду', 'в четверг'];
 		let day = sl(0, 2);
 		let hour = [6, 12, 18].iz();
-		let values = Array.from({length: 13}, () => 720 + 2 * sl(0, 30));
+		let pMin = 720, pMax = 780, pStep = 2;
+		let values = Array.from({length: 13}, () => sl(pMin, pMax, pStep));
 		let selected = variant < 2 ? values.slice(4 * day, 4 * day + 5) : values;
 		let questions = [
 		    'Найдите наименьшее значение атмосферного давления ' + days[day] + ' с 0:00 до 24:00 включительно.',
@@ -27,7 +28,7 @@
 		    dataArray: [values.map((value, i) => [6 * i, value])], width: '780px', height: '420px',
 		    options: {axes: {
 		        xaxis: {min: 0, max: 72, ticks: values.map((_, i) => [6 * i, i === 12 ? 'Чт 24' : ['Вт', 'Ср', 'Чт'][Math.floor(i / 4)] + ' ' + (6 * i % 24)])},
-		        yaxis: {min: 720, max: 780, tickInterval: 2},
+		        yaxis: {min: pMin, max: pMax, tickInterval: pStep},
 		    }, seriesDefaults: {showMarker: false}},
 		});
 	}, 1000);
