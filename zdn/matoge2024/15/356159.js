@@ -30,7 +30,7 @@
         let vertexByLetter = {};
         vertexByLetter[angleDano[1]] = { x: 0, y: 0 };
         vertexByLetter[angleDano[0]] = { x: sideFirst, y: 0 };
-        vertexByLetter[angleDano[2]] = { x: sideSecond * Math.cos(angle), y: sideSecond * Math.sin(angle) };
+        vertexByLetter[angleDano[2]] = calculateEndpointLineAtAngle(0, 0, angle, sideSecond);
         let vertices = letters.map((letter) => vertexByLetter[letter]);
 
         // Центрируем по габаритам: autoScale масштабирует относительно начала координат
