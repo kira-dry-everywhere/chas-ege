@@ -6,7 +6,7 @@
 		let preference = ['phone', 'smartphone'];
 		let variant = getSelectedPreferenceFromList(key, preference);
 		let product = ['мобильного телефона', 'смартфона'][variant];
-		let prices = Array.from({length: 6}, () => 100 * sl(80, 250));
+		let prices = [].zapslch(0, 5, 8000, 25000, 100);
 		let rows = [['Магазин', 'Цена, руб.'].tr('th')].concat(prices.map((price, i) => ['Магазин ' + (i + 1), price].tr()));
 		NAtask.setTask({
 			text: 'В таблице представлены данные о стоимости одной модели ' + product + ' в различных магазинах.' +
