@@ -7,22 +7,8 @@
             return (value - yOffset) + '${}^{\\circ} C$';
         }
 
-        function wasLengthConstValue(interval) {
-            let maxLength = 0;
-            let currentLength = 0;
-            for (let i = 0; i < interval.length; i++) {
-                if (interval[i] !== 0 && i > 0 && interval[i] === interval[i - 1]) {
-                    currentLength++;
-                } else {
-                    currentLength = interval[i] === 0 ? 0 : 1;
-                }
-                maxLength = Math.max(maxLength, currentLength);
-            }
-            return maxLength;
-        }
-
         function answAboutConstN(intervals, answ) {
-            let lengthConsts = intervals.map(interval => wasLengthConstValue(interval));
+            let lengthConsts = intervals.map(interval => lengthConst(interval));
             let maxLength = lengthConsts.maxE();
             let wasConstN = intervals.map((_, i) => lengthConsts[i] === maxLength && (maxLength === 4 || maxLength === 5));
             let constTexts = intervals.map((_, i) => {
