@@ -33,14 +33,9 @@
         vertexByLetter[angleDano[2]] = calculateEndpointLineAtAngle(0, 0, angle, sideSecond);
         let vertices = letters.map((letter) => vertexByLetter[letter]);
 
-        // Центрируем по габаритам: autoScale масштабирует относительно начала координат
-        let xs = vertices.map((p) => p.x);
-        let ys = vertices.map((p) => p.y);
-        let shiftX = (Math.min(...xs) + Math.max(...xs)) / 2;
-        let shiftY = (Math.min(...ys) + Math.max(...ys)) / 2;
         // Поле чуть меньше стандартного — чтобы подписи снаружи вершин не обрезались краем холста
-        let points = autoScale(vertices.map((p) => ({ x: p.x - shiftX, y: p.y - shiftY })), undefined, [], {
-            startX: -165, finishX: 165, startY: -150, finishY: 150,
+        let points = autoScale(vertices, undefined, [], {
+            startX: -165, finishX: 165, startY: -150, finishY: 150, center: true,
         });
         let connectionMatrix = [
             [1],
