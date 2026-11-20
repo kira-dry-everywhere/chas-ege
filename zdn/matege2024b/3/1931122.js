@@ -19,7 +19,7 @@
 		let departures = Array.from({length: 5}, (_, i) => first + 25 * i + sl(0, 10));
 		let durations = Array.from({length: 21}, (_, i) => 120 + 5 * i).iz(5);
 		let through = [true, !!sl1(), !!sl1(), true, true];
-		let numbers = departures.map((_, i) => i + 1);
+		let numbers = [].N(departures.length);
 		let passenger = departures[sl(0, 3)] + sl(0, 12);
 		let suitable = departures.map((_, i) => i).filter(i => through[i] && (shortestJourney || departures[i] >= passenger));
 		genAssertNonempty(suitable);
