@@ -23,7 +23,7 @@
 		let passenger = departures[sl(0, 3)] + sl(0, 12);
 		let suitable = departures.map((_, i) => i).filter(i => through[i] && (shortestJourney || departures[i] >= passenger));
 		genAssertNonempty(suitable);
-		let selected = suitable.slice().sort((a, b) => shortestJourney ? durations[a] - durations[b] : departures[a] - departures[b])[0];
+		let selected = suitable[suitable.map(i => shortestJourney ? durations[i] : departures[i]).min()];
 		let table = [
 		    ['Станция / поезд'].concat(numbers).tr('th'),
 		    [stations[0]].concat(departures.map(time => time.toDvoet())).tr(),
