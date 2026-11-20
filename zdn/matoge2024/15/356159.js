@@ -64,10 +64,8 @@
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             points.forEach((elem, i) => {
-                let dx = elem.x - centroid.x;
-                let dy = elem.y - centroid.y;
-                let len = Math.hypot(dx, dy);
-                ctx.fillText(letters[i], elem.x + dx / len * 16, -(elem.y + dy / len * 16));
+                let label = labelPositionAwayFrom(elem, centroid, 16);
+                ctx.fillText(letters[i], label.x, -label.y);
             });
         };
 
