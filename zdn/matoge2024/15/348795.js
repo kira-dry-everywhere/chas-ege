@@ -42,12 +42,10 @@
             ctx.strokeStyle = om.primaryBrandColors.iz();
             switch (variant % 3) {
                 case 0:
-                    ctx.strokeInMiddleOfSegment(pointToLine[0].x, pointToLine[0].y, points[3].x, points[3].y, 7);
-                    ctx.strokeInMiddleOfSegment(pointToLine[1].x, pointToLine[1].y, points[3].x, points[3].y, 7);
+                    pointToLine.forEach(p => ctx.strokeInMiddleOfSegment(p.x, p.y, points[3].x, points[3].y, 7));
                     break;
                 case 1:
-                    ctx.arcBetweenSegments([pointToLine[0].x, pointToLine[0].y, pointForAngleAndMarked.x, pointForAngleAndMarked.y, points[3].x, points[3].y], 30);
-                    ctx.arcBetweenSegments([pointToLine[1].x, pointToLine[1].y, pointForAngleAndMarked.x, pointForAngleAndMarked.y, points[3].x, points[3].y], 30);
+                    pointToLine.forEach(p => ctx.arcBetweenSegments([p.x, p.y, pointForAngleAndMarked.x, pointForAngleAndMarked.y, points[3].x, points[3].y], 30));
                     break;
                 case 2:
                     ctx.arcBetweenSegments([pointForAngleAndMarked.x, pointForAngleAndMarked.y, points[3].x, points[3].y, pointToLine[0].x, pointToLine[0].y], 15, true);
