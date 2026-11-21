@@ -6,7 +6,7 @@
 		let preference = ['fanTime', 'firstTemperature'];
 		let variant = getSelectedPreferenceFromList(key, preference);
 		let fan = sl(5, 8);
-		let initial = 10 * sl(1, 2);
+		let initial = sl(10, 20, 10);
 		let values = Array.from({length: 13}, (_, i) => i <= fan ? initial + 10 * i : initial + 10 * fan - 5 * (i - fan));
 		let first = sl(1, fan - 1);
 		let target = values[first];
