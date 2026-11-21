@@ -20,7 +20,7 @@
 		});
 		NAtask.modifiers.addJqplot({
 			dataArray: [values.map((value, i) => [i, value])], width: '700px', height: '380px',
-			options: {axes: {xaxis: {min: 0, max: 12, tickInterval: 1}, yaxis: {min: 0, max: 120, tickInterval: 10}},
+			options: {axes: {xaxis: {min: 0, max: values.length - 1, tickInterval: 1}, yaxis: {min: 0, max: 120, tickInterval: 10}},
 				seriesDefaults: {showMarker: false}},
 		});
 	}, 1000);
