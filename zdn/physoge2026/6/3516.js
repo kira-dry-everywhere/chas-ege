@@ -49,9 +49,7 @@
 				ct.fillText('см', px(12) + 6, ry + rh + 3);
 				// отметки положения тела
 				for (let i = 0; i < positions.length; i++) {
-					ct.beginPath();
-					ct.arc(px(positions[i]), ry - 14, 3.5, 0, 2 * Math.PI);
-					ct.fill();
+					ct.drawFilledCircle(px(positions[i]), ry - 14, 3.5);
 				}
 			},
 		});
