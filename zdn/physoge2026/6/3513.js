@@ -83,7 +83,7 @@
 				ct.textBaseline = 'top';
 				ct.fillText('Fтр, Н', 4, 4);
 				ct.textAlign = 'right';
-				ct.fillText('N, Н', 336, oy + 22);
+				ct.fillText('N, Н', ct.canvas.width - 4, oy + 22);
 				ct.lineWidth = 2;
 				ct.drawLine(ox, oy, ox + nMax * kx, oy - F1 * ky);
 				ct.drawLine(ox, oy, ox + nMax * kx, oy - F2 * ky);
