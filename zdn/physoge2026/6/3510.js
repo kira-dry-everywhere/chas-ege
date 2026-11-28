@@ -63,7 +63,7 @@
 			height: 250,
 			paint: function (ct) {
 				let ox = 45, kx = 32;
-				let top = 20, bottom = 210, xmax = 30, xmin = -10;
+				let top = 20, bottom = 210, xmax = pool.maxE(), xmin = pool.minE();
 				let ky = (bottom - top) / (xmax - xmin);
 				function px(t) { return ox + t * kx; }
 				function py(x) { return top + (xmax - x) * ky; }
@@ -74,21 +74,21 @@
 				ct.font = '13px serif';
 				// сетка
 				ct.setLineDash([3, 3]);
-				for (let t = 2; t <= 8; t += 2) ct.drawLine(px(t), top, px(t), bottom);
-				for (let x = xmin; x <= xmax; x += 10) if (x !== 0) ct.drawLine(ox, py(x), px(8), py(x));
+				times.slice(1).forEach(function (t) { ct.drawLine(px(t), top, px(t), bottom); });
+				for (let x = xmin; x <= xmax; x += 10) if (x !== 0) ct.drawLine(ox, py(x), px(times.last()), py(x));
 				ct.setLineDash([]);
 				// оси
 				ct.lineWidth = 1.5;
-				ct.drawArrow(ox, py0, px(8) + 18, py0);       // ось t вдоль x=0
+				ct.drawArrow(ox, py0, px(times.last()) + 18, py0);       // ось t вдоль x=0
 				ct.drawArrow(ox, bottom, ox, top - 12);        // ось x вдоль t=0
 				ct.lineWidth = 1;
 				// оцифровка t
 				ct.textAlign = 'center';
 				ct.textBaseline = 'top';
-				for (let t = 2; t <= 8; t += 2) {
+				times.slice(1).forEach(function (t) {
 					ct.drawLine(px(t), py0 - 3, px(t), py0 + 3);
 					ct.fillText('' + t, px(t), py0 + 5);
-				}
+				});
 				// оцифровка x
 				ct.textAlign = 'right';
 				ct.textBaseline = 'middle';
@@ -105,7 +105,7 @@
 				ct.textAlign = 'left';
 				ct.textBaseline = 'top';
 				ct.fillText('x, м', 4, 4);
-				ct.fillText('t, с', px(8) + 6, py0 + 18);
+				ct.fillText('t, с', px(times.last()) + 6, py0 + 18);
 			},
 		});
 	}, 1000);
