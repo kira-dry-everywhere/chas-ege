@@ -99,8 +99,7 @@
 				ct.fillText('0', ox - 6, py0 + 10);
 				// график
 				ct.lineWidth = 2;
-				for (let i = 0; i < times.length - 1; i++)
-					ct.drawLine(px(times[i]), py(xs[i]), px(times[i + 1]), py(xs[i + 1]));
+				ct.drawPolyline(times.map(px), xs.map(py));
 				ct.lineWidth = 1;
 				// подписи осей
 				ct.textAlign = 'left';
