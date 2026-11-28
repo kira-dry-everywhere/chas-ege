@@ -49,7 +49,7 @@
 			ctx.drawFigure(points, triangle.connectionMatrix);
 
 			ctx.strokeStyle = om.primaryBrandColors.iz();
-			ctx.arcBetweenSegments([points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y], 20);
+			ctx.arcBetweenSegments(points, 20);
 		};
 
 		NAtask.setTask({
