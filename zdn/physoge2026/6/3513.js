@@ -85,13 +85,13 @@
 				ct.textAlign = 'right';
 				ct.fillText('N, Н', 336, oy + 22);
 				ct.lineWidth = 2;
-				ct.drawLine(ox, oy, ox + nMax * kx, oy - mu1 * nMax * ky);
-				ct.drawLine(ox, oy, ox + nMax * kx, oy - mu2 * nMax * ky);
+				ct.drawLine(ox, oy, ox + nMax * kx, oy - F1 * ky);
+				ct.drawLine(ox, oy, ox + nMax * kx, oy - F2 * ky);
 				ct.lineWidth = 1;
 				ct.textAlign = 'left';
 				ct.textBaseline = 'middle';
-				ct.fillText('1', ox + nMax * kx + 6, oy - mu1 * nMax * ky - 8);
-				ct.fillText('2', ox + nMax * kx + 6, oy - mu2 * nMax * ky - 2);
+				ct.fillText('1', ox + nMax * kx + 6, oy - F1 * ky - 8);
+				ct.fillText('2', ox + nMax * kx + 6, oy - F2 * ky - 2);
 			},
 		});
 	}, 1000);
