@@ -7,7 +7,7 @@
 		let times = [0, 2, 4, 6, 8];
 		let pool = [-10, 0, 10, 20, 30];
 		let xs = times.map(function () { return pool.iz(); });
-		genAssert(Math.max.apply(null, xs) > Math.min.apply(null, xs), 'график вырожден в горизонтальную прямую');
+		genAssert(xs.maxE() > xs.minE(), 'график вырожден в горизонтальную прямую');
 
 		let key = '3510';
 		// speed — скорость на участке (ФИПИ 962AE1 163060 F2EB40);
