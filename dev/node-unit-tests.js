@@ -1392,6 +1392,55 @@ module.exports = function registerNodeTests(QUnit) {
             ['20px liberation_sans', 'center', 'alphabetic', '#000'], 'не заданное — шрифт по умолчанию, остальное из контекста');
     });
 
+    QUnit.test('ctx.signVertices: yDown — контекст с экранной осью Y', function (assert) {
+        var calls = [];
+        var ctx = {
+            font: '',
+            save: function () { calls.push({ op: 'save' }); },
+            restore: function () { calls.push({ op: 'restore' }); },
+            scale: function (x, y) { calls.push({ op: 'scale', x: x, y: y }); },
+            fillText: function (text, x, y) { calls.push({ op: 'text', text: text, x: x, y: y, font: this.font }); },
+        };
+        var points = [{ x: 10, y: 20 }, { x: -30, y: 40 }, { x: 50, y: -60 }, { x: 0, y: 0 }];
+        function ys() {
+            return calls.filter(function (c) { return c.op === 'text'; }).map(function (c) { return c.y; });
+        }
+        CanvasRenderingContext2D.prototype.signVertices.call(ctx, points, ['A', 'B', 'C', 'D'], { yDown: true });
+        assert.deepEqual(ys(), [45, 65, -65, -5], 'первая половина +25, вторая -5 — прямо по экранной оси Y');
+        assert.deepEqual(calls.filter(function (c) { return c.op === 'text'; }).map(function (c) { return c.x; }), [10, -30, 50, 0], 'абсциссы не меняются');
+        assert.deepEqual(calls.filter(function (c) { return c.op === 'scale'; }), [], 'ось Y не переворачивается');
+        assert.equal(calls[0].op, 'save', 'контекст сохраняется');
+        assert.equal(calls[calls.length - 1].op, 'restore', 'контекст восстанавливается');
+        calls = [];
+        CanvasRenderingContext2D.prototype.signVertices.call(ctx, points, ['A', 'B', 'C', 'D'], { yDown: true, above: [0] });
+        assert.deepEqual(ys(), [15, 65, -35, 25], 'above работает и при yDown: вершина 0 сверху, остальные снизу');
+        calls = [];
+        CanvasRenderingContext2D.prototype.signVertices.call(ctx, points, ['A', 'B', 'C', 'D'], { yDown: false });
+        assert.deepEqual(ys(), [5, -15, 55, -5], 'yDown: false — прежнее поведение');
+        assert.deepEqual(calls.filter(function (c) { return c.op === 'scale'; }), [{ op: 'scale', x: 1, y: -1 }], 'без yDown ось отражается ровно один раз');
+    });
+
+    QUnit.test('ctx.signVertices: yDown с отступами и шрифтом — подписи призмы в проекции', function (assert) {
+        var calls = [];
+        var ctx = {
+            font: 'контекст', textAlign: 'start', textBaseline: 'alphabetic',
+            save: function () {},
+            restore: function () {},
+            scale: function () { calls.push({ op: 'scale' }); },
+            fillText: function (text, x, y) { calls.push({ op: 'text', text: text, x: x, y: y, font: this.font }); },
+        };
+        var points = [{ x: 0, y: 100 }, { x: 80, y: 60 }, { x: -80, y: 60 }, { x: 0, y: -100 }, { x: 80, y: -140 }, { x: -80, y: -140 }];
+        var letters = ['A', 'B', 'C', 'A₁', 'B₁', 'C₁'];
+        CanvasRenderingContext2D.prototype.signVertices.call(ctx, points, letters, {
+            yDown: true, font: '25px liberation_sans', offsetBelow: 15, offsetAbove: -10,
+        });
+        var texts = calls.filter(function (c) { return c.op === 'text'; });
+        assert.deepEqual(texts.map(function (c) { return c.y; }), [115, 75, 75, -110, -150, -150], 'нижнее основание — под вершиной (+15), верхнее — над вершиной (-10)');
+        assert.deepEqual(texts.map(function (c) { return c.text; }), letters, 'буквы в порядке вершин');
+        assert.equal(texts[0].font, '25px liberation_sans', 'шрифт из options');
+        assert.deepEqual(calls.filter(function (c) { return c.op === 'scale'; }), [], 'ось Y не переворачивается');
+    });
+
     // ============================================================
     //  Canvas: дуга угла по массиву точек  (lib/canvas.js)
     // ============================================================
