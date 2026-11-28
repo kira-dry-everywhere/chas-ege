@@ -30,23 +30,23 @@
 			width: 345,
 			height: 130,
 			paint: function (ct) {
-				let ox = 30, kx = 24, ry = 55, rh = 20;
+				let ox = 30, kx = 24, ry = 55, rh = 20, rulerCm = 12;
 				function px(cm) { return ox + cm * kx; }
 				ct.strokeStyle = 'black';
 				ct.fillStyle = 'black';
 				ct.lineWidth = 1;
 				ct.font = '12px serif';
 				// линейка
-				ct.strokeRect(px(0), ry, 12 * kx, rh);
+				ct.strokeRect(px(0), ry, rulerCm * kx, rh);
 				ct.textAlign = 'center';
 				ct.textBaseline = 'top';
-				for (let cm = 0; cm <= 12; cm++) {
+				for (let cm = 0; cm <= rulerCm; cm++) {
 					let h = (cm % 5 === 0) ? 10 : 6;
 					ct.drawLine(px(cm), ry, px(cm), ry + h);
 					ct.fillText('' + cm, px(cm), ry + rh + 3);
 				}
 				ct.textAlign = 'left';
-				ct.fillText('см', px(12) + 6, ry + rh + 3);
+				ct.fillText('см', px(rulerCm) + 6, ry + rh + 3);
 				// отметки положения тела
 				for (let i = 0; i < positions.length; i++) {
 					ct.drawFilledCircle(px(positions[i]), ry - 14, 3.5);
