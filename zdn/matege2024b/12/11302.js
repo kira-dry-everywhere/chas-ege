@@ -15,11 +15,12 @@
 		// Треугольник нужен только для чертежа. При tg A < 0,25 он вытягивается в полоску,
 		// поэтому такой рисуется как при tg A = 0,25: пропорции здесь не так важны, как читаемость
 		let halfBase = height / Math.max(tgA, 0.25);
+		let sideLength = Math.hypot(height, halfBase);
 		let triangle = new Triangle({
 			lengths: {
 				lengthAB: 2 * halfBase,
-				lengthBC: Math.hypot(height, halfBase),
-				lengthCA: Math.hypot(height, halfBase),
+				lengthBC: sideLength,
+				lengthCA: sideLength,
 			},
 			supplementary: {
 				calculateHeights: true,
