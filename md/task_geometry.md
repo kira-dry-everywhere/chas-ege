@@ -39,6 +39,18 @@ ctx.signVertices(points, letters);
 ctx.signVertices(points, letters, {above: [2, 3]});
 ```
 
+Стереошаблоны, которые рисуют проекцию `project3DTo2D()` без `ctx.scale(1, -1)`,
+работают в контексте с экранной осью Y (вниз — плюс). Им подходит
+`ctx.signVertices(points, letters, {yDown: true})`: ось метод не переворачивает,
+а `offsetBelow`/`offsetAbove` откладывает прямо по экранной оси Y (под вершиной —
+плюс, над вершиной — минус). Правило половин, `above`, `font`, `textAlign`,
+`textBaseline` и `fillStyle` те же, что и без `yDown`.
+
+```js
+ctx.drawFigure(points2D, matrix);
+ctx.signVertices(points2D, letters, {yDown: true, font: '25px liberation_sans', offsetBelow: 15, offsetAbove: -10});
+```
+
 
 ## Построение чертежа
 
