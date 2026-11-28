@@ -32,7 +32,7 @@
 				'Модуль скорости равен модулю углового коэффициента: ' +
 				'$$v = \\frac{|\\Delta x|}{\\Delta t} = \\frac{|' + xs[seg + 1] + ' - (' + xs[seg] + ')|}{' + (t2 - t1) + '} = ' + speed + ' \\text{ м/с}.$$';
 		} else {
-			let T = [4, 6, 8].iz();
+			let T = times.slice(2).iz();
 			let idx = times.indexOf(T);
 			let disp = Math.abs(xs[idx] - xs[0]);
 			let path = 0;
